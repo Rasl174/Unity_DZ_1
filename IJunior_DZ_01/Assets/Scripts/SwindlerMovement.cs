@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwindlerMove : MonoBehaviour
+public class SwindlerMovement : MonoBehaviour
 {
     [SerializeField] private Transform _path;
     [SerializeField] private int _speed;
