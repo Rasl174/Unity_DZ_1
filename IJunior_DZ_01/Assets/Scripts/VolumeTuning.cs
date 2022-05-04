@@ -8,43 +8,39 @@ public class VolumeTuning : MonoBehaviour
 
     private bool _volumeUp = true;
     private bool _volumeDown = false;
-    private float _maxVolume = 0.99f;
-    private float _minVolume = 0.2f;
+    private float _maxVolume = 1f;
+    private float _minVolume = 0.1f;
 
     private void Start()
     {
         AudioListener.volume = _minVolume;
+        StartCoroutine(VolumeTuner());
     }
 
-    private void Update()
+    private IEnumerator VolumeTuner()
     {
-        VolumeUp();
-        VolumeDown();
-    }
+        while (_volumeUp)
+        {
+            AudioListener.volume = Mathf.MoveTowards(AudioListener.volume, _maxVolume, _speedVolumeChange * Time.deltaTime);
+            yield return new WaitForSeconds(0.1f);
 
-    private void VolumeUp()
-    {
-        if (_volumeUp == true)
-        {
-            AudioListener.volume += Time.deltaTime * _speedVolumeChange;
+            if(AudioListener.volume >= _maxVolume)
+            {
+                _volumeUp = false;
+                _volumeDown = true;
+            }
         }
-        if (AudioListener.volume >= _maxVolume)
+        while (_volumeDown)
         {
-            _volumeDown = true;
-            _volumeUp = false;
-        }
-    }
+            AudioListener.volume = Mathf.MoveTowards(AudioListener.volume, _minVolume, _speedVolumeChange * Time.deltaTime);
+            yield return new WaitForSeconds(0.1f);
 
-    private void VolumeDown()
-    {
-        if (_volumeDown == true)
-        {
-            AudioListener.volume -= Time.deltaTime * _speedVolumeChange;
+            if (AudioListener.volume <= _minVolume)
+            {
+                _volumeDown = false;
+                _volumeUp = true;
+            }
         }
-        if(AudioListener.volume <= _minVolume)
-        {
-            _volumeDown = false;
-            _volumeUp = true;
-        }
+        StartCoroutine(VolumeTuner());
     }
 }
