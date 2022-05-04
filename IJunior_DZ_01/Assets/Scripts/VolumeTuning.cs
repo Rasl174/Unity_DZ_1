@@ -6,14 +6,19 @@ public class VolumeTuning : MonoBehaviour
 {
     [SerializeField] private float _speedVolumeChange;
 
+    private AudioSource _alarmAudio;
+
     private bool _volumeUp = true;
     private bool _volumeDown = false;
     private float _maxVolume = 1f;
     private float _minVolume = 0.1f;
+    private float _waitTime = 0.1f;
 
     private void Start()
     {
-        AudioListener.volume = _minVolume;
+        _alarmAudio = GetComponent<AudioSource>();
+        _alarmAudio.volume = _minVolume;
+
         StartCoroutine(VolumeTuner());
     }
 
@@ -21,10 +26,10 @@ public class VolumeTuning : MonoBehaviour
     {
         while (_volumeUp)
         {
-            AudioListener.volume = Mathf.MoveTowards(AudioListener.volume, _maxVolume, _speedVolumeChange * Time.deltaTime);
-            yield return new WaitForSeconds(0.1f);
+            _alarmAudio.volume = Mathf.MoveTowards(_alarmAudio.volume, _maxVolume, _speedVolumeChange * Time.deltaTime);
+            yield return new WaitForSeconds(_waitTime);
 
-            if(AudioListener.volume >= _maxVolume)
+            if(_alarmAudio.volume >= _maxVolume)
             {
                 _volumeUp = false;
                 _volumeDown = true;
@@ -32,10 +37,10 @@ public class VolumeTuning : MonoBehaviour
         }
         while (_volumeDown)
         {
-            AudioListener.volume = Mathf.MoveTowards(AudioListener.volume, _minVolume, _speedVolumeChange * Time.deltaTime);
-            yield return new WaitForSeconds(0.1f);
+            _alarmAudio.volume = Mathf.MoveTowards(_alarmAudio.volume, _minVolume, _speedVolumeChange * Time.deltaTime);
+            yield return new WaitForSeconds(_waitTime);
 
-            if (AudioListener.volume <= _minVolume)
+            if (_alarmAudio.volume <= _minVolume)
             {
                 _volumeDown = false;
                 _volumeUp = true;
