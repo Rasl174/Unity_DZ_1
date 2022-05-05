@@ -557,10 +557,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1172372519}
   - component: {fileID: 1172372520}
-  - component: {fileID: 1172372522}
   - component: {fileID: 1172372523}
   - component: {fileID: 1172372524}
   - component: {fileID: 1172372521}
+  - component: {fileID: 1172372522}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -742,7 +742,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 5.3453064, y: -1.2244346}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -753,7 +753,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10.545191, y: 3.4488683}
   m_EdgeRadius: 0
 --- !u!114 &1172372523
 MonoBehaviour:
@@ -983,7 +983,7 @@ GameObject:
   - component: {fileID: 1504888564}
   m_Layer: 0
   m_Name: Swindler
-  m_TagString: Untagged
+  m_TagString: Swindler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
